@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myLogo.png">
+  <link rel="icon" href="/img/myLogo.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Eastyn">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一周Vue2传参 查询参数传参（更适合多个参数）：?参数&#x3D;参数值 &#x3D;&gt; this.$route.query.参数名 动态路由传参（更适合单个参数）：&#x2F;路径&#x2F;参数 &#x3D;&gt; this.$route.params.参数名  组件缓存keep-alive将缓存所有切换的组件 三个属性：include——组件名数组，只有匹配的组件会被缓存 ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eastyn的博客">
+<meta property="og:url" content="http://eastyn7.github.io/2024/01/12/%E5%AF%92%E5%81%87%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Eastyn的博客">
+<meta property="og:description" content="第一周Vue2传参 查询参数传参（更适合多个参数）：?参数&#x3D;参数值 &#x3D;&gt; this.$route.query.参数名 动态路由传参（更适合单个参数）：&#x2F;路径&#x2F;参数 &#x3D;&gt; this.$route.params.参数名  组件缓存keep-alive将缓存所有切换的组件 三个属性：include——组件名数组，只有匹配的组件会被缓存 ​">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401301833577.png">
+<meta property="og:image" content="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401282337703.png">
+<meta property="og:image" content="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401291346681.png">
+<meta property="og:image" content="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401311616720.png">
+<meta property="article:published_time" content="2024-01-12T07:32:34.988Z">
+<meta property="article:modified_time" content="2024-09-04T15:47:54.818Z">
+<meta property="article:author" content="Eastyn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401301833577.png">
+  
+  
+  
+  <title>Eastyn的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"eastyn7.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"♡","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Eastyn&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/myIndex.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-12 15:32" pubdate>
+          2024年1月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h1><h2 id="Vue2"><a href="#Vue2" class="headerlink" title="Vue2"></a>Vue2</h2><h3 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h3><ol>
+<li>查询参数传参（更适合多个参数）：?参数&#x3D;参数值 &#x3D;&gt; this.$route.query.参数名</li>
+<li>动态路由传参（更适合单个参数）：&#x2F;路径&#x2F;参数 &#x3D;&gt; this.$route.params.参数名</li>
+</ol>
+<h3 id="组件缓存keep-alive"><a href="#组件缓存keep-alive" class="headerlink" title="组件缓存keep-alive"></a>组件缓存keep-alive</h3><p>将缓存所有切换的组件</p>
+<p>三个属性：include——<strong>组件名</strong>数组，只有匹配的组件会被缓存</p>
+<p>​					 exclude——<strong>组件名</strong>数组，任何匹配的组件都不会被缓存</p>
+<p>​					 max——最多可以缓存多少组件实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>	&lt;div&gt;<br>        &lt;keep-alive :include=&quot;[&#x27;LayoutPage&#x27;]&quot;&gt;<br>        	&lt;router-view&gt;&lt;/router-view&gt;<br>        &lt;/keep-alive&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p>组件缓存了之后就不会再执行created、mounted、destroyed等钩子</p>
+<p>提供了两个声明周期函数：activated(){} deactivated(){}</p>
+<h3 id="利用VueX创建仓库"><a href="#利用VueX创建仓库" class="headerlink" title="利用VueX创建仓库"></a>利用VueX创建仓库</h3><p><img src="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401301833577.png" srcset="/img/loading.gif" lazyload alt="image-20240112213135637"></p>
+<p>利用mutations修改数据，this.$store.comit(‘方法名’)</p>
+<p>mapState映射到计算属性		mapMutations映射到方法</p>
+<p>mapActons映射到方法			 mapGetters映射到计算属性</p>
+<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><p>处理异步，setTimeout模拟发请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">actions:&#123;<br>	setAsynCount(context,num)&#123;<br>		setTimeout(()=&gt;&#123;<br>			context.comit(&#x27;changeCount&#x27;,num)<br>		&#125;,1000)<br>	&#125;<br>&#125;<br><br>this.$store.dispatch(&#x27;setAsyncCount&#x27;,200)<br></code></pre></td></tr></table></figure>
+
+<h3 id="modules模块"><a href="#modules模块" class="headerlink" title="modules模块"></a>modules模块</h3><p>拆分子仓，便于维护</p>
+<p>在子模块中写namespaced: true可以直接利用mapState映射其中的内容 </p>
+<p>$store.getters[‘模块名&#x2F;xxx’] </p>
+<h3 id="请求拦截器"><a href="#请求拦截器" class="headerlink" title="请求拦截器"></a>请求拦截器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs vue">/* 封装axios用于发送请求 */<br>import axios from &#x27;axios&#x27;<br>import &#123; Toast &#125; from &#x27;vant&#x27;<br><br>// 创建一个新的axios实例<br>const request = axios.create(&#123;<br>  baseURL: &#x27;http://cba.itlike.com/public/index.php?s=/api/&#x27;,<br>  timeout: 5000<br>&#125;)<br><br>// 添加请求拦截器<br>request.interceptors.request.use(function (config) &#123;<br>  // 在发送请求之前做些什么<br>  return config<br>&#125;, function (error) &#123;<br>  // 对请求错误做些什么<br>  return Promise.reject(error)<br>&#125;)<br><br>// 添加响应拦截器<br>request.interceptors.response.use(function (response) &#123;<br>  // 对响应数据做点什么<br>  const res = response.data<br>  console.log(res)<br>  if (res.status !== 200) &#123;<br>    // 给提示<br>    Toast(res.message)<br>    // 抛错误promise<br>    return Promise.reject(res.message)<br>  &#125;<br>  return res<br>&#125;, function (error) &#123;<br>  // 对响应错误做点什么<br>  return Promise.reject(error)<br>&#125;)<br><br>export default request<br></code></pre></td></tr></table></figure>
+
+<h3 id="storage存储模块"><a href="#storage存储模块" class="headerlink" title="storage存储模块"></a>storage存储模块</h3><p>防止vuex刷新丢失，同时避免每次存取操作太长太麻烦的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 约定一个通用的键名<br>const INFO_KEY = &#x27;hm_shopping_info&#x27;<br><br>// 获取个人信息<br>export const getInfo = () =&gt; &#123;<br>  const defaultObj = &#123; token: &#x27;&#x27;, userId: &#x27;&#x27; &#125;<br>  const result = localStorage.getItem(INFO_KEY)<br>  return result ? JSON.parse(result) : defaultObj<br>&#125;<br><br>// 设置个人信息<br>export const setInfo = (obj) =&gt; &#123;<br>  localStorage.setItem(INFO_KEY, JSON.stringify(obj))<br>&#125;<br><br>// 移除个人信息<br>export const removeInfo = () =&gt; &#123;<br>  localStorage.removeItem(INFO_KEY)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="登录节流操作"><a href="#登录节流操作" class="headerlink" title="登录节流操作"></a>登录节流操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 开启loading，禁止背景点击（节流处理，防止多次无效触发）<br>Toast.loading(&#123;<br>  message: &#x27;加载中...&#x27;,<br>  forbidClick: true, // 禁止背景点击<br>  loadingType: &#x27;spinner&#x27;, // 配置图标<br>  duration: 0 // 不会自动消失，响应拦截器回来之后关闭<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">if (res.status !== 200) &#123;<br>  // 给提示<br>  Toast(res.message)<br>  // 抛错误promise<br>  return Promise.reject(res.message)<br>&#125; else &#123;<br>  // 正确清除loading效果<br>  Toast.clear()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="页面访问拦截"><a href="#页面访问拦截" class="headerlink" title="页面访问拦截"></a>页面访问拦截</h3><p>设置全局前置路由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vue">router.beforeEach(to,from,next)=&gt;&#123;<br>	// to 往哪里去;from 从哪里来;next()是否放行,如果next()调用则放行,next(路径)拦截到某个路径页面<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="本周总结"><a href="#本周总结" class="headerlink" title="本周总结"></a>本周总结</h1><p>一直在跟着用vue2实现完整的商城项目，另外空余时间逐步在过渡vue3的基础知识，最近几天在搞三创赛需要用到的网页设计</p>
+<h1 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h1><h2 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h2><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">创建：<span class="hljs-built_in">npm</span> init vue@latest<br></code></pre></td></tr></table></figure>
+
+<p>setup允许在script中直接编写组合是API，setup()钩子执行时期早于beforeCreate()钩子，并且不再能使用this，数据和函数需要再setup最后return，<script setup></script>语法糖写法省略了return</p>
+<p>template不再要求唯一根元素 </p>
+<h3 id="reactive-和ref"><a href="#reactive-和ref" class="headerlink" title="reactive()和ref()"></a>reactive()和ref()</h3><p>reactive()作用：接受对象类型数据的参数传入并返回一个响应式的对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; reactive &#125; from &#x27;vue&#x27;<br>const state = reactive(&#123;<br>	count:100<br>&#125;)<br>const setCount = () =&gt; &#123;<br>	state.count++<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>		&lt;div&gt;&#123;&#123; state.count &#125;&#125;&lt;/div&gt;<br>		&lt;button @click=&quot;setCount&quot;&gt;+1&lt;/button&gt;<br>	&lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p>ref()作用：接收简单类型或对象类型的数据传入并返回一个响应式的对象</p>
+<p>​					  本质：是在原有传入数据的基础上，外层包了一层对象</p>
+<p>​					  在脚本中访问数据需要通过.value，在template中不需要加.value</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; ref &#125; from &#x27;vue&#x27;<br>const count = ref(0)<br>const setCount = () =&gt; &#123;<br>	count.value++<br>&#125;<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>		&lt;div&gt;&#123;&#123; state.count &#125;&#125;&lt;/div&gt;<br>		&lt;button @click=&quot;setCount&quot;&gt;+1&lt;/button&gt;<br>	&lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="组合式API-computed"><a href="#组合式API-computed" class="headerlink" title="组合式API-computed"></a>组合式API-computed</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; ref,computed &#125; from &#x27;vue&#x27;<br>const list = ref([1,2,3,4,5,6,7,8])<br><br>const computedList = computed(()=&#123;<br>    return list.value.filter(item =&gt; item &gt; 2)<br>&#125;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>		&lt;div&gt;原始数据：&#123;&#123; list &#125;&#125;&lt;/div&gt;<br>		&lt;div&gt;计算后数据:&#123;&#123; computedList &#125;&#125;&lt;/div&gt;<br>	&lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="组合式API-watch"><a href="#组合式API-watch" class="headerlink" title="组合式API-watch"></a>组合式API-watch</h3><p>作用：侦听一个或多个数据的变化，数据变化时执行回调函数</p>
+<p>两个额外参数：immediate（立即执行）；deep（深度监听）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>import &#123; ref,watch &#125; from &#x27;vue&#x27;<br>const count = ref(0)<br>const nickname = ref(&#x27;张三&#x27;)<br><br>const changeCount = ()=&gt;&#123;<br>    count.value++<br>&#125;<br>const cangeNickname = ()=&gt;&#123;<br>    nickname.value = &#x27;李四&#x27;<br>&#125;<br><br>// 监视单个<br>watch(count,(newValue,oldValue)=&gt;&#123;<br>    console.log(newValue,oldValue)<br>&#125;)<br>    <br>// 监视多个<br>watch([count,nickname],(newValue,oldValue)=&gt;&#123;<br>    console.log(newValue,oldValue)<br>&#125;)<br>    <br>// 立即执行<br>watch(count,(newValue,oldValue)=&gt;&#123;<br>    console.log(newValue,oldValue)<br>&#125;,&#123;<br>    immediate:true<br>&#125;)<br>    <br>// 深度监视[ref(简单类型)可以监听,ref(复杂类型)必须深度监听]<br>const userInfo = ref(&#123;<br>    name:&#x27;zs&#x27;,<br>    age:18<br>&#125;)<br>const setUserInfo = ()=&gt;&#123;<br>    userInfo.value.age++<br>&#125;<br>watch(userInfo,(newValue,oldValue)=&gt;&#123;<br>    console.log(newValue,oldValue)<br>&#125;,&#123;<br>    deep:true<br>&#125;)<br>  <br>// 对于对象中的属性进行监视<br>const userInfo = ref(&#123;<br>    name:&#x27;zs&#x27;,<br>    age:18<br>&#125;)<br>const setUserInfo = ()=&gt;&#123;<br>    userInfo.value.age++<br>&#125;<br>watch(() =&gt; userInfo.value.age,(newValue,oldValue) =&gt; &#123;<br>    console.log(newValue,oldValue)<br>&#125;)<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>        &#123;&#123; count &#125;&#125;<br>    &lt;/div&gt;<br>	&lt;button @click=&quot;changeCount&quot;&gt;<br>        改数字<br>    &lt;/button&gt;<br>	&lt;div&gt;<br>    	&#123;&#123; nickname &#125;&#125;<br>    &lt;/div&gt;<br>	&lt;button @click=&quot;changeNickname&quot;&gt;<br>        改昵称<br>    &lt;/button&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="组合式API-生命周期函数"><a href="#组合式API-生命周期函数" class="headerlink" title="组合式API-生命周期函数"></a>组合式API-生命周期函数</h3><table>
+<thead>
+<tr>
+<th align="center">选项式API</th>
+<th align="center">组合式API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">beforeCreate&#x2F;created</td>
+<td align="center">setup</td>
+</tr>
+<tr>
+<td align="center">beforeMount</td>
+<td align="center">onBeforeMount</td>
+</tr>
+<tr>
+<td align="center">mounted</td>
+<td align="center">onMounted</td>
+</tr>
+<tr>
+<td align="center">beforeUpdate</td>
+<td align="center">onBreforeUpdate</td>
+</tr>
+<tr>
+<td align="center">updated</td>
+<td align="center">onUpdated</td>
+</tr>
+<tr>
+<td align="center">beforeUnmount</td>
+<td align="center">onBeforeUnmount</td>
+</tr>
+<tr>
+<td align="center">unmounted</td>
+<td align="center">onUnmounted</td>
+</tr>
+</tbody></table>
+<h3 id="组合式API-父子通信"><a href="#组合式API-父子通信" class="headerlink" title="组合式API-父子通信"></a>组合式API-父子通信</h3><p><strong>父传子</strong>：父组件给子组件绑定属性，子组件内部通过props选项接收，通过defineProps“编译器宏”接收子组件传递的数据</p>
+<p><img src="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401282337703.png" srcset="/img/loading.gif" lazyload alt="image-20240128233723469"></p>
+<p><strong>子传父</strong>：父组件中组件标签通过@绑定事件，子组件内部通过emit方法触发事件，通过defineEmits编译器宏生成emit方法</p>
+<p><img src="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401291346681.png" srcset="/img/loading.gif" lazyload alt="image-20240129134637403"></p>
+<h3 id="组合式API-模板引用"><a href="#组合式API-模板引用" class="headerlink" title="组合式API-模板引用"></a>组合式API-模板引用</h3><p>调用ref函数生成一个ref对象，通过ref标识绑定ref对象到标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;scipt setup&gt;<br>    import TestCom from &quot;@/components/........&quot;<br>    import &#123; ref, onMounted &#125; from &#x27;vue&#x27;<br>    <br>    const inp = ref(null)<br>    <br>    // 生命钩子onMounted等dom渲染完<br>    onMounted(()=&gt;&#123;<br>    	// console.log(inp.value)<br>    	// inp.value.focus()<br>    &#125;)<br>    <br>    const clickFn = ()=&gt;&#123;<br>    inp.value.focus()<br>    &#125;<br>&lt;/scipt&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>        &lt;input ref=&quot;inp&quot; type=&quot;text&quot;&gt;<br>        &lt;button @click=&quot;clickFn&quot;&gt;<br>            点击让输入框聚焦<br>    	&lt;/button&gt;<br>    &lt;/div&gt;<br>	&lt;TestCom/&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p>默认情况下在<script setup>语法糖下组件内部的属性和方法是不开放给父组件访问的,可以通过defineExpose编译宏指定哪些属性和方法允许访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>	import &#123; ref &#125; from &#x27;vue&#x27;<br>    const testMessage = ref(&#x27;this is test message&#x27;)<br>    defineExpose(&#123;<br>        testMessage<br>    &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="组合式API-provide和inject"><a href="#组合式API-provide和inject" class="headerlink" title="组合式API-provide和inject"></a>组合式API-provide和inject</h3><p>顶层组件向任意的底层组件传递数据和方法，实现跨层组件通信</p>
+<ul>
+<li><p>普通数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 顶层组件<br>provide(&#x27;key&#x27;,顶层组件中的数据)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 底层组件<br>const message = inject(&#x27;key&#x27;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>响应式数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 顶层组件<br>provide(&#x27;app-key&#x27;,ref对象)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 底层组件<br>const message = inject(&#x27;app-key&#x27;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 顶层组件<br>const setCount = () =&gt; &#123;<br>	count,value++<br>&#125;<br>provide(&#x27;setCount-key&#x27;,setCount)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 底层组件<br>const setCount = inject(&#x27;setCount-key&#x27;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="defineOptions"><a href="#defineOptions" class="headerlink" title="defineOptions"></a>defineOptions</h3><p>用defineOptions定义任意的选项，props、emits、expose、slots除外</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>	defineOptions(&#123;<br>        name:&#x27;&#x27;,<br>        inheritAttrs:false,<br>        .........<br>    &#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Pinia"><a href="#Pinia" class="headerlink" title="Pinia"></a>Pinia</h3><p>Vuex的替代品</p>
+<p>手动添加pinia</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">import &#123; createApp &#125; from &#x27;vue&#x27;<br>import &#123; createPinia &#125; from &#x27;pinia&#x27;<br>import App from &#x27;./App.vue&#x27;<br><br>const pinia = createPinia()<br>const app = createApp(App)<br><br>app.use(pinia)<br>app.use(&#x27;#app&#x27;)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>基础使用：定义store，组件使用store</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vue">import &#123; defineStore &#125; from &#x27;pinia&#x27;<br>import &#123; ref,computed &#125; from &#x27;vue&#x27;<br><br>// 定义store<br>// defineStore(仓库的唯一标识),() =&gt; &#123;....&#125;)<br><br>export const useCOunterStore = defineStore(&#x27;counter&#x27;,() =&gt; &#123;<br>	// 声明数据 state<br>	const count = ref(0)<br><br>	// 声明操作数据的方法 actions （普通函数）<br>	const addCount = () =&gt; count.value++<br><br>	// 声明基于数据派生的计算属性 getters （computed）<br>	const double = computed(() =&gt; count.value * 2)<br><br>	return &#123;<br>		count,<br>		double,<br>		addCount<br>	&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script setup&gt;<br>	import &#123; useCounterStore &#125; from &#x27;@/store/....&#x27;<br>    const counterStore = useCounterStore()<br>&lt;/script&gt;<br><br>&lt;template&gt;<br>	&lt;div&gt;<br>        我是Son1.vue - &#123;&#123; counterStore.count &#125;&#125; - &#123;&#123; counterStore.double &#125;&#125;<br>        &lt;button @click=&quot;counterStore.addCount&quot;&gt;+&lt;/button&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><code>stpreTpRefs</code> - 可以使pinia产生的store解构赋值数据保持响应式</p>
+<p>Pinia持久化——白雪localStorage</p>
+<ul>
+<li><p>下载依赖，导入，使用</p>
+<p><code>import persist from &#39;pinia-plugun-persistedstate&#39;</code> - 导入持久化插件</p>
+<p><code>app.use(pinia.use(persist))</code> - piania插件的安装配置</p>
+<p><code>persist:true</code> - 在组合式的第三个参数中添加开启当前模块的持久化（默认是整个state被持久化到localStorage）</p>
+</li>
+</ul>
+<h3 id="pnpm"><a href="#pnpm" class="headerlink" title="pnpm"></a>pnpm</h3><p><img src="https://eastynoss.oss-cn-chengdu.aliyuncs.com/202401311616720.png" srcset="/img/loading.gif" lazyload alt="image-20240131161640522"></p>
+<h1 id="第三周"><a href="#第三周" class="headerlink" title="第三周"></a>第三周</h1><h2 id="el-row-el-col-el-form"><a href="#el-row-el-col-el-form" class="headerlink" title="el-row/el-col/el-form"></a>el-row/el-col/el-form</h2><p><code>el-row</code> 一行分为24份</p>
+<p><code>el-col :span=&quot;12&quot;</code> 该列占12份</p>
+<p><code>el-col :offset:&quot;3&quot;</code> 左外边距3份</p>
+<p><code>el-form</code> 表单</p>
+<p><code>el-form-item</code> 表单中的每一个元素</p>
+<h2 id="表单校验规则"><a href="#表单校验规则" class="headerlink" title="表单校验规则"></a>表单校验规则</h2><ul>
+<li>非空校验——required:true	message消息提示	trigger触发校验的时机 blur(失焦时)\change(改变时)</li>
+<li>长度校验——min:xx	max:xx</li>
+<li>正则校验——pattern:正则规则(例如: \^\S{6,15}$\ 表示6-25位的非空字符)</li>
+<li>自定义校验——validator:(rule,value,callback)<ul>
+<li>rule	当前校验规则相关的信息</li>
+<li>value	所校验的表单元素目前的表单值</li>
+<li>callback	无论成功还是失败都需要callback<ul>
+<li>callback()	校验成功</li>
+<li>callback(new Errir(错误信息))	校验失败</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第四周"><a href="#第四周" class="headerlink" title="第四周"></a>第四周</h1><h2 id="node的http模块搭建的后端服务"><a href="#node的http模块搭建的后端服务" class="headerlink" title="node的http模块搭建的后端服务"></a>node的http模块搭建的后端服务</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>)<br><br><span class="hljs-keyword">const</span> server = http.<span class="hljs-title function_">createServer</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)&#123;<br>    res.<span class="hljs-property">statusCode</span> = <span class="hljs-number">200</span><br>    res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">&#x27;Content-Type&#x27;</span>,<span class="hljs-string">&#x27;Content-Type&#x27;</span>,<span class="hljs-string">&#x27;text/html&#x27;</span>)<br>    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;...&#x27;</span>)<br>&#125;)<br><br>server.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>,<span class="hljs-title function_">functon</span>(<span class="hljs-params"></span>)&#123;<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;服务已启动&#x27;</span>)              <br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>运行：<code>node server.js</code></p>
+<h2 id="express搭建后端服务"><a href="#express搭建后端服务" class="headerlink" title="express搭建后端服务"></a>express搭建后端服务</h2><p>安装：npm install express</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)<br><br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>()<br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)&#123;<br>    <span class="hljs-comment">// 相应内容</span><br>    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;...&#x27;</span>)<br>&#125;)<br><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>,<span class="hljs-title function_">functon</span>(<span class="hljs-params"></span>)&#123;<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;服务已启动&#x27;</span>)              <br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h2 id="在-Express-中，中间件就是一个函数："><a href="#在-Express-中，中间件就是一个函数：" class="headerlink" title="在 Express 中，中间件就是一个函数："></a>在 Express 中，中间件就是一个函数：</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">someMiddleware</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  <span class="hljs-comment">// 自定义逻辑</span><br>  <span class="hljs-title function_">next</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>三个参数中，<code>req</code> 和 <code>res</code> 就是前面提到的 Request 请求对象和 Response 响应对象；而 <code>next</code> 函数则用来触发下一个中间件的执行。</p>
+<h3 id="全局中间件"><a href="#全局中间件" class="headerlink" title="全局中间件"></a>全局中间件</h3><p>通过 <code>app.use</code> 函数就可以注册中间件，并且此中间件会在用户发起<strong>任何请求</strong>都可能会执行，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">use</span>(someMiddleware)<br></code></pre></td></tr></table></figure>
+
+<h3 id="路由中间件"><a href="#路由中间件" class="headerlink" title="路由中间件"></a>路由中间件</h3><p>通过在路由定义时注册中间件，此中间件只会在用户访问该路由时执行，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/middleware&#x27;</span>, someMiddleware, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Hello World&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="编写一个日志中间件"><a href="#编写一个日志中间件" class="headerlink" title="编写一个日志中间件"></a>编写一个日志中间件</h3><ol>
+<li>新建一个logger.js，并写入以下函数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">logger</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  <span class="hljs-keyword">const</span> time = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[<span class="hljs-subst">$&#123;time.toLocaleString()&#125;</span>] <span class="hljs-subst">$&#123;req.method&#125;</span> <span class="hljs-subst">$&#123;req.url&#125;</span>`</span>);<br>  <span class="hljs-title function_">next</span>();<br>&#125;<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = logger;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在server.js引入logger函数并且全局注册</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> logger = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./logger&#x27;</span>)<br>...<br>...<br>app.<span class="hljs-title function_">use</span>(logger)<br>...<br>...<br></code></pre></td></tr></table></figure>
+
+<p>这样我们在访问路由后，每次都会在控制台打印一行日志，如下：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-string">[2023/2/27 15:54:29]</span> GET /<br><span class="hljs-string">[2023/2/27 15:54:47]</span> POST /about<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：如果忘记在中间件中调用 <code>next</code> 函数，并且又不直接返回响应时，服务器会直接卡在这个中间件不会继续执行下去哦！</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://eastyn7.github.io/2024/01/12/寒假学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Eastyn</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/22/express%E5%85%A5%E9%97%A8/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
