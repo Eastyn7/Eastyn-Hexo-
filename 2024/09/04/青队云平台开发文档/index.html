@@ -27,7 +27,7 @@
 <meta property="og:description" content="青队云平台开发文档💕启动时间：2024.09.04 项目概述背景随着志愿服务在高校中的蓬勃发展，“小红帽”常青藤青年志愿者服务队【以下简称青队】逐渐成为学院内外各类公益活动的重要组织者。作为一个由热心青年学生组成的志愿者队伍，我们的成员在多个领域积极参与，展现了良好的精神风貌和社会责任感。为了更好地提升服务队的内部管理和对外宣传，我们希望通过开发一个内部管理和展示平台，强化队伍凝聚力和成员归属感">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-04T15:00:04.749Z">
-<meta property="article:modified_time" content="2024-10-08T15:39:25.015Z">
+<meta property="article:modified_time" content="2024-10-15T15:41:44.517Z">
 <meta property="article:author" content="Eastyn">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.8k 字
+          9.4k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          65 分钟
+          79 分钟
         
       </span>
     
@@ -315,7 +315,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="关于青队（About-Us）"><a href="#关于青队（About-Us）" class="headerlink" title="关于青队（About Us）"></a>关于青队（About Us）</h3><h2 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h2><h3 id="创建前端项目"><a href="#创建前端项目" class="headerlink" title="创建前端项目"></a>创建前端项目</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pnpm create vue</span><br></code></pre></td></tr></table></figure>
+<h3 id="关于青队（About-Us）"><a href="#关于青队（About-Us）" class="headerlink" title="关于青队（About Us）"></a>关于青队（About Us）</h3><h2 id="前端开发"><a href="#前端开发" class="headerlink" title="前端开发"></a>前端开发</h2><h3 id="创建前端项目"><a href="#创建前端项目" class="headerlink" title="创建前端项目"></a>创建前端项目</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pnpm create vue</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="配置Vant"><a href="#配置Vant" class="headerlink" title="配置Vant"></a>配置Vant</h3><p>添加vant</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">pnpm <span class="hljs-built_in">add</span> vant<br></code></pre></td></tr></table></figure>
@@ -408,28 +408,125 @@
 
 
 
-<h3 id="创建后端项目"><a href="#创建后端项目" class="headerlink" title="创建后端项目"></a>创建后端项目</h3><p>创建后端项目</p>
+
+
+<h2 id="后端开发"><a href="#后端开发" class="headerlink" title="后端开发"></a>后端开发</h2><ol>
+<li><strong>controllers 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放业务逻辑处理函数。每个控制器负责处理特定路由的请求，调用相应的 <code>service</code> 来执行操作，然后将响应返回给客户端。</li>
+<li><strong>添加内容</strong>：为每个实体或模块创建一个控制器文件，包含增、删、改、查等操作。例如：<code>userController.ts</code> 处理用户相关的请求。</li>
+</ul>
+<ol start="2">
+<li><strong>db 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放数据库连接配置和数据库操作相关的代码。你可以在这里创建数据库连接池和处理数据库查询。</li>
+<li><strong>添加内容</strong>：创建 <code>index.ts</code> 文件，用来管理数据库连接（如 MySQL）。还可以根据需求创建数据库查询方法。</li>
+</ul>
+<ol start="3">
+<li><strong>middlewares 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放中间件，用于处理路由请求前的一些公共操作，如验证、日志、错误处理等。</li>
+<li><strong>添加内容</strong>：添加常见的中间件文件，如 <code>authMiddleware.ts</code>（用于认证）和 <code>errorMiddleware.ts</code>（用于统一错误处理）。</li>
+</ul>
+<ol start="4">
+<li><strong>routers 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放路由定义，指定哪些 URL 对应哪些控制器的操作。</li>
+<li><strong>添加内容</strong>：为每个模块创建一个路由文件，例如 <code>userRouter.ts</code>。使用 <code>express.Router()</code> 来定义路由，并导入相应的控制器方法。</li>
+</ul>
+<ol start="5">
+<li><strong>services 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：负责处理业务逻辑和数据操作，主要与 <code>db</code> 层进行交互。<code>service</code> 层让控制器和数据库逻辑分离，使得代码结构更加清晰。</li>
+<li><strong>添加内容</strong>：为每个实体创建服务文件，例如 <code>userService.ts</code>，负责用户的增删改查逻辑。</li>
+</ul>
+<ol start="6">
+<li><strong>types 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放 TypeScript 类型定义。你可以在这里定义全局的接口、类型等。</li>
+<li><strong>添加内容</strong>：例如 <code>user.d.ts</code> 用于定义用户实体的类型，或者定义 <code>responseFormat.ts</code> 用于标准化 API 响应结构的类型。</li>
+</ul>
+<ol start="7">
+<li><strong>utils 文件夹</strong></li>
+</ol>
+<ul>
+<li><strong>作用</strong>：存放通用的工具函数或辅助功能，例如加密函数、格式化工具、日志工具等。</li>
+<li><strong>添加内容</strong>：比如创建一个 <code>responseHandler.ts</code>，封装和优化 <code>res.send()</code> 的响应格式，使其可以统一处理成功或失败的请求。</li>
+</ul>
+<h3 id="创建后端项目"><a href="#创建后端项目" class="headerlink" title="创建后端项目"></a>创建后端项目</h3><p><strong>初始化npm项目</strong></p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init -y<br></code></pre></td></tr></table></figure>
 
-<p>安装express</p>
+<p> <strong>安装express框架</strong></p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i express<br></code></pre></td></tr></table></figure>
 
+<p><strong>安装依赖与ts有关的依赖</strong>：<code>express</code>是基于<code>node</code>环境的，所以我们需要安装两个类型依赖，以获得相关<code>api</code>的类型提示</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">npm install typescript ts-<span class="hljs-keyword">node</span> <span class="hljs-title">@types</span>/<span class="hljs-keyword">node</span> <span class="hljs-title">@types</span>/express --save-dev<br></code></pre></td></tr></table></figure>
 
+<p><strong>初始化 TypeScript 配置</strong>：执行以下命令来生成 <code>tsconfig.json</code> 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tsc --init<br></code></pre></td></tr></table></figure>
 
+<p><code>tsconfig.json</code> 文件中的配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;es2016&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;module&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;commonjs&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;esModuleInterop&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;forceConsistentCasingInFileNames&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;strict&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;skipLibCheck&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;rootDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./src&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;outDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./dist&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;src/**/*&quot;</span><br>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;exclude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-string">&quot;node_modules&quot;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
+<h3 id="项目入口文件"><a href="#项目入口文件" class="headerlink" title="项目入口文件"></a>项目入口文件</h3><p><strong>创建项目入口文件</strong>：在 <code>src</code> 目录下创建 <code>app.ts</code> 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 导入 express 模块</span><br><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)<br><span class="hljs-comment">// 创建 express 的服务器实例</span><br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>()<br><br><span class="hljs-comment">// write your code here...</span><br><br><span class="hljs-comment">// 调用 app.listen 方法，指定端口号并启动web服务器</span><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3007</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;api server running at http://127.0.0.1:3007&#x27;</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
 
+<h3 id="配置-cors-跨域"><a href="#配置-cors-跨域" class="headerlink" title="配置 cors 跨域"></a>配置 cors 跨域</h3><p>安装cors中间件</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i cors<br></code></pre></td></tr></table></figure>
 
+<p>在app.js中配置cors中间件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 导入 cors 中间件</span><br><span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;cors&#x27;</span>)<br><span class="hljs-comment">// 将 cors 注册为全局中间件</span><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-title function_">cors</span>())<br></code></pre></td></tr></table></figure>
 
+<h3 id="配置解析表单数据的中间件"><a href="#配置解析表单数据的中间件" class="headerlink" title="配置解析表单数据的中间件"></a>配置解析表单数据的中间件</h3><p>配置解析 JSON 和 application&#x2F;x-www-form-urlencoded 格式的表单数据的中间件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 配置解析表单数据的中间件</span><br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>())<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>(&#123; <span class="hljs-attr">extended</span>: <span class="hljs-literal">false</span> &#125;))<br></code></pre></td></tr></table></figure>
 
+<h3 id="配置路由-1"><a href="#配置路由-1" class="headerlink" title="配置路由"></a>配置路由</h3><p>创建routers、controllers、services三大文件夹</p>
+<ul>
+<li>routers：<code>index.ts</code>文件统一管理所有模块的路由；其他均为模块单独的路由管理</li>
+<li>controllers：每个模块的管理端代码，放置请求的整体代码</li>
+<li>services：每个模块的服务端代码，放置具体的请求内容和实现逻辑</li>
+</ul>
+<h3 id="封装统一的响应格式"><a href="#封装统一的响应格式" class="headerlink" title="封装统一的响应格式"></a>封装统一的响应格式</h3><p>新建<code>/utils/responseUtil.ts</code>文件，在此封装统一响应格式：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 封装统一的响应格式</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Response</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;express&#x27;</span>;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">ResponseFormat</span> &#123;<br>  <span class="hljs-attr">success</span>: <span class="hljs-built_in">boolean</span>;<br>  <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;<br>  data?: <span class="hljs-built_in">any</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">successResponse</span> = (<span class="hljs-params"><span class="hljs-attr">res</span>: <span class="hljs-title class_">Response</span>, <span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span>, message = <span class="hljs-string">&#x27;Success&#x27;</span>, statusCode = <span class="hljs-number">200</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-attr">response</span>: <span class="hljs-title class_">ResponseFormat</span> = &#123;<br>    <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>,<br>    message,<br>    data<br>  &#125;;<br>  res.<span class="hljs-title function_">status</span>(statusCode).<span class="hljs-title function_">json</span>(response);<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">errorResponse</span> = (<span class="hljs-params"><span class="hljs-attr">res</span>: <span class="hljs-title class_">Response</span>, <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, statusCode = <span class="hljs-number">500</span></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-attr">response</span>: <span class="hljs-title class_">ResponseFormat</span> = &#123;<br>    <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>,<br>    message<br>  &#125;;<br>  res.<span class="hljs-title function_">status</span>(statusCode).<span class="hljs-title function_">json</span>(response);<br>&#125;;<br></code></pre></td></tr></table></figure>
 
+<h3 id="安装并配置-mysql-模块"><a href="#安装并配置-mysql-模块" class="headerlink" title="安装并配置 mysql 模块"></a>安装并配置 mysql 模块</h3><p>运行如下命令，安装 <code>mysql</code> 模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i mysql<br>npm install @types/mysql --save-dev<br></code></pre></td></tr></table></figure>
 
+<p>新建 <code>/db/index.js</code> 文件，在此自定义模块中创建数据库的连接对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> mysql <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mysql&#x27;</span>;<br><br><span class="hljs-keyword">const</span> db = mysql.<span class="hljs-title function_">createPool</span>(&#123;<br>  <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>  <span class="hljs-attr">user</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>  <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;Hu1282861514&#x27;</span>,<br>  <span class="hljs-attr">database</span>: <span class="hljs-string">&#x27;cqt_cloud_platform&#x27;</span><br>&#125;);<br><br><span class="hljs-comment">// 封装 db.query 为 Promise</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> query = &lt;T&gt;(<span class="hljs-attr">sql</span>: string, values?: any): <span class="hljs-title class_">Promise</span>&lt;T&gt; =&gt; &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    db.<span class="hljs-title function_">query</span>(sql, values, <span class="hljs-function">(<span class="hljs-params">error, results</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (error) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(error);<br>      &#125;<br>      <span class="hljs-title function_">resolve</span>(results);<br>    &#125;);<br>  &#125;);<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> db;<br></code></pre></td></tr></table></figure>
 
-<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><h3 id="导入vue文件TS报错"><a href="#导入vue文件TS报错" class="headerlink" title="导入vue文件TS报错"></a>导入vue文件TS报错</h3><p>错误信息提示： TypeScript 无法找到模块 <code>@/views/**/**.vue</code> 的声明文件，这意味着 TypeScript 无法推断该文件的类型，因此默认将其视为 <code>any</code> 类型。</p>
+<h3 id="配置中间件"><a href="#配置中间件" class="headerlink" title="配置中间件"></a>配置中间件</h3><p>创建<code>middlewares</code>文件夹，放置使用的中间件</p>
+<p><strong>表单验证中间件</strong>（<code>validateInput.ts</code>）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Request</span>, <span class="hljs-title class_">Response</span>, <span class="hljs-title class_">NextFunction</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;express&#x27;</span>;<br><br><span class="hljs-keyword">const</span> studentIdRegex = <span class="hljs-regexp">/^\d&#123;10&#125;$/</span>; <span class="hljs-comment">// 正则表达式用于验证学号</span><br><span class="hljs-keyword">const</span> emailRegex = <span class="hljs-regexp">/^[a-zA-Z0-9._%+-]+@ctbu\.edu\.cn$/</span>; <span class="hljs-comment">// 正则表达式用于验证邮箱</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> validateRegistration = (<span class="hljs-attr">req</span>: <span class="hljs-title class_">Request</span>, <span class="hljs-attr">res</span>: <span class="hljs-title class_">Response</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">NextFunction</span>): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; student_id, email, password &#125; = req.<span class="hljs-property">body</span>;<br><br>  <span class="hljs-keyword">if</span> (!student_id || !studentIdRegex.<span class="hljs-title function_">test</span>(student_id)) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;学号必须为10位数字&#x27;</span> &#125;);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (!email || !email.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">&#x27;@ctbu.edu.cn&#x27;</span>)) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;邮箱必须以 @ctbu.edu.cn 结尾&#x27;</span> &#125;);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (!password || password.<span class="hljs-property">length</span> &lt; <span class="hljs-number">6</span> || !<span class="hljs-regexp">/[A-Z]/</span>.<span class="hljs-title function_">test</span>(password) || !<span class="hljs-regexp">/[a-z]/</span>.<span class="hljs-title function_">test</span>(password) || !<span class="hljs-regexp">/\d/</span>.<span class="hljs-title function_">test</span>(password)) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;密码长度至少为6位，并且包含大小写字母和数字&#x27;</span> &#125;);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 如果验证通过，调用 next()</span><br>  <span class="hljs-title function_">next</span>();<br>&#125;;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> validateLogin = (<span class="hljs-attr">req</span>: <span class="hljs-title class_">Request</span>, <span class="hljs-attr">res</span>: <span class="hljs-title class_">Response</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">NextFunction</span>): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> &#123; loginInput, password &#125; = req.<span class="hljs-property">body</span>;<br><br>  <span class="hljs-comment">// 检查是否输入了学号或邮箱</span><br>  <span class="hljs-keyword">if</span> (!loginInput || (!studentIdRegex.<span class="hljs-title function_">test</span>(loginInput) &amp;&amp; !emailRegex.<span class="hljs-title function_">test</span>(loginInput))) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;学号或邮箱格式错误&#x27;</span> &#125;);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 检查是否输入了密码</span><br>  <span class="hljs-keyword">if</span> (!password) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;密码不能为空&#x27;</span> &#125;);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 如果验证通过，调用 next()</span><br>  <span class="hljs-title function_">next</span>();<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="安装密码加密库-bcrypt-和-JWT-库"><a href="#安装密码加密库-bcrypt-和-JWT-库" class="headerlink" title="安装密码加密库 (bcrypt) 和 JWT 库"></a><strong>安装密码加密库 (<code>bcrypt</code>) 和 JWT 库</strong></h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install bcrypt jsonwebtoken<br><span class="hljs-built_in">npm</span> install @types/bcrypt --save-dev<br><span class="hljs-built_in">npm</span> install @types/jsonwebtoken --save-dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>bcrypt</code>: 用于密码哈希和验证。</li>
+<li><code>jsonwebtoken</code>: 用于生成和验证 JWT。</li>
+<li><code>@types/bcrypt</code>: bcrypt 的 TypeScript 类型定义。</li>
+<li><code>@types/jsonwebtoken</code>: JWT 的 TypeScript 类型定义。</li>
+</ul>
+<h3 id="用户注册逻辑"><a href="#用户注册逻辑" class="headerlink" title="用户注册逻辑"></a>用户注册逻辑</h3><h2 id="注意事项及问题解决"><a href="#注意事项及问题解决" class="headerlink" title="注意事项及问题解决"></a>注意事项及问题解决</h2><h3 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h3><p><strong>本项目开发建议使用下方的开发软件，请提前配置好下方所示的开发环境</strong></p>
+<p>开发软件：VS Code，微信开发者工具</p>
+<p>开发环境依赖：</p>
+<ul>
+<li>node：18.17.0</li>
+<li>npm：10.8.2</li>
+<li>pnpm：9.1.0</li>
+<li>ts-node：10.9.2</li>
+<li>nodemon：3.1.0</li>
+</ul>
+<h3 id="导入vue文件TS报错"><a href="#导入vue文件TS报错" class="headerlink" title="导入vue文件TS报错"></a>导入vue文件TS报错</h3><p>错误信息提示： TypeScript 无法找到模块 <code>@/views/**/**.vue</code> 的声明文件，这意味着 TypeScript 无法推断该文件的类型，因此默认将其视为 <code>any</code> 类型。</p>
 <p>原因：TypeScript 默认不支持 .vue 文件的模块类型解析，需要手动添加类型声明文件。</p>
 <p>解决方法：</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-comment">/* env.d.ts */</span><br><span class="hljs-comment">/// &lt;reference types=&quot;vite/client&quot; /&gt;</span><br><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;*.vue&#x27;</span> &#123;<br>  <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">DefineComponent</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br>  <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types</span><br>  <span class="hljs-keyword">const</span> <span class="hljs-attr">component</span>: <span class="hljs-title class_">DefineComponent</span>&lt;&#123;&#125;, &#123;&#125;, <span class="hljs-built_in">any</span>&gt;<br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> component<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
 
 
 
